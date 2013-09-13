@@ -37,20 +37,17 @@ class Verify extends CI_Controller
 				$data = array (
 							'mail' 			=> $mail,
 							'pass'			=> $pass,
-							'check_login' 	=> true
-							);
+							'id' 			=> $result['id'],
+							'name'			=> $result['name'],
+						);
 				$this->session->set_userdata($data);
 				redirect('home');
-				//$this->load->view('home');
 			} else {
 				echo "Invalid email or password, try again !";
-				//$this->form_validation->set_message('log', 'Invalid email or password');
 				$this->load->helper(array('form','url'));
 				$this->load->view('login');
 			}
 		} else {
-			//var_dump($this->form_validation->'name');
-			#$this->load->helper('form');
 			$this->load->view('login');
 		}
 		

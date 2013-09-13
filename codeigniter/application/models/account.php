@@ -20,7 +20,22 @@ class Account extends CI_Model
 		$query = $this->db->get();
 
 		if ($query->num_rows() == 1) {
-			return true;
+			return $query->row_array();
+		} else {
+			return false;
+    	}
+	}
+	public function getAccount($mail) 
+	{
+		$this->db->select();
+		$this->db->from('account');
+		$this->db->where("mail", $mail);
+		$this->db->limit(1);
+
+		$query = $this->db->get();
+
+		if ($query->num_rows() == 1) {
+			return $query->row_array();
 		} else {
 			return false;
     	}
@@ -32,7 +47,7 @@ class Account extends CI_Model
 		return true;
 	}
 
-	function checkMail($mail)
+	public function checkMail($mail)
 	{
 		$this->db->select();
 		$this->db->where('mail', $mail);

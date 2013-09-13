@@ -6,9 +6,10 @@ class Register extends CI_Controller
 	public function __constructs() 
 	{
 		parent::__constructs();
-		$this->load->library('form_validation');
+		$this->load->library(array('form_validation', 'session'));
 		$this->load->database();
 		$this->load->helper('hash');
+		$this->load->model('account');
 	}
 
 	public function index() 
@@ -33,11 +34,21 @@ class Register extends CI_Controller
 				'mail' 	=> $this->input->post('mail'),
 				'pass'	=> myHash($this->input->post('mail'), $this->input->post('pass'))
 			);
-			$this->load->model('account');
+			
 			$this->account->insert($data);
-			//$this->session->set_flashdata('data', $data);
+			echo "登録が成功しました。もう一度ログインしてください。";
+			$temp = $this->account->getAccount($data['mail']);
+			print_r($temp);
+			$temp2 = array (
+							'mail' 			=> $temp['mail'],
+							'pass'			=> $temp['pass'],
+							'id' 			=> $temp['id'],
+							'name'			=> $temp['name'],
+			);
+			print_r($data);
+			$this->load->library('session');
+			$this->session->set_userdata($temp2);
 			redirect('home');
-			//$this->load->view('home', $data);
 		} else {
 			$this->load->view('account');
 		}

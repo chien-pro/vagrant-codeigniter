@@ -13,26 +13,45 @@
 	border-color: #FFD324;
 }
 </style>
-</head>
 <?php
-
-echo form_open("register/check_register");
-echo form_fieldset("account").'<br>';
-
-echo form_label('Name:');
-echo form_input('name').'<br>';
-echo "<div id=infoMessage>".form_error('name')."</div>";
-
-echo form_label('Email address: ');
-echo form_input('mail').'<br>';
-echo "<div id=infoMessage>".form_error('mail')."</div>";
-
-echo form_label('Password: ');
-echo form_password('pass').'<br>';
-echo "<div id=infoMessage>".form_error('pass')."</div>";
-
-echo form_submit('Ok', 'Save');
-echo form_fieldset_close();
-echo form_close();
-
+    $name       = array(
+                        'name'        => 'name',
+                        'id'          => 'name',
+                        'value'       => 'name',
+                        'size'        => '20',
+                        );
+    $email      = array(
+                        'name'        => 'mail',
+                        'id'          => 'mail',
+                        'value'       => 'mail',
+                        'size'        => '20',
+                    );
+    $password   = array(
+                        'name'        => 'pass',
+                        'id'          => 'pass',
+                        'value'       => 'pass',
+                        'size'        => '20',
+                    );
+    $submit     = array(
+                        "name"=>"ok",
+                        "value"=>"登録",
+                    );
 ?>
+</head>
+<body>
+<?php
+    echo form_open("register/check_register");
+    echo form_fieldset("account").'<br>';
+
+    echo form_label("名前 : ").form_input($name)."<br/>";
+    echo "<div id=infoMessage>".form_error('name')."</div>";
+    echo form_label("メールアドレス : ").form_input($email)."<br/>";
+    echo "<div id=infoMessage>".form_error('mail')."</div>";
+    echo form_label("パスワード : ").form_password($password)."<br/>";
+    echo "<div id=infoMessage>".form_error('pass')."</div>";
+    echo form_label("").form_submit($submit)."<br/>";
+
+    echo form_fieldset_close();
+    echo form_close();
+?>
+</body>

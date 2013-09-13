@@ -1,90 +1,58 @@
+<!DOCTYPE html>
 <html>
 <head>
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js">
-		/*function loadXMLDoc()
-		{
-		var xmlhttp;
-		if (window.XMLHttpRequest)
-		  {// code for IE7+, Firefox, Chrome, Opera, Safari
-		  xmlhttp=new XMLHttpRequest();
-		  }
-		else
-		  {// code for IE6, IE5
-		  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-		  }
-		xmlhttp.onreadystatechange=function()
-		  {
-		  if (xmlhttp.readyState==4 && xmlhttp.status==200)
-		    {
-		    document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
-		    }
-		  }
-		xmlhttp.open("GET","ajax_info.txt",true);
-		xmlhttp.send();
-		}
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-wip/css/bootstrap.min.css">
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script>
+		var num = 3;
+		$(document).ready(function(){ 
+			$("#button1").click(function() {
+				var subj = $("#subj").val();
+				$.ajax({
+					type: "POST",
+					url: "home/insert_subj",
+					data: {content: subj}
+				}).done(function( msg ) {
+					$("#subj_view").html(msg);
+				});				
+			});
 
-		function onChange(str)
-			{
-			if (str=="")
-			  {
-			  document.getElementById("txtHint").innerHTML="";
-			  return;
-			  }
-			if (window.XMLHttpRequest)
-			  {// code for IE7+, Firefox, Chrome, Opera, Safari
-			  xmlhttp=new XMLHttpRequest();
-			  }
-			else
-			  {// code for IE6, IE5
-			  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-			  }
-			xmlhttp.onreadystatechange=function()
-			  {
-			  if (xmlhttp.readyState==4 && xmlhttp.status==200)
-			    {
-			    document.getElementById("txtHint").innerHTML="HEHEHE"//xmlhttp.responseText;
-			    }
-			  }
-			xmlhttp.open("GET","./getSubject.php?q="+str,true);
-			xmlhttp.send();
-			}
-		function onChange*/
-$(document).ready(function(){ 
-	$("p").click(function(){
-		$(this).hide();
-	});
-});
-
+			$("#button2").click(function() {
+				var subj = $("#subj").val();
+				num += 3;
+				$.ajax({
+					type: "POST",
+					url: "home/view_more",
+					data: {'num': num}
+				}).done(function( msg ) {
+					$("#subj_view").html(msg);
+				});				
+			});
+		});
 	</script>
 </head>
 <body>
-	<div id='menu'>
-		<?php 
-		echo "<a> ようこそ   ".$this->session->all_userdata('session_id')['mail']."</a><";
-		echo "<a href='logout'>Log out</a>";
-
+	<ul class="nav nav-tabs">
+		<li class="active">	<a href="home"><?php echo $this->session->userdata['name'];?></a></li>
+		<li>				<a href="logout">Log out</a></li>
+	</ul>
+	<h2>Welcome to Twitter !</h2>
+	<label> New Subject:</label>
+	<input type="text" id="subj">
+	<button id="button1"> Send </button>
+	<p> Subject Views </p>
+	<div id="subj_view">
+		<?php
+		if($all_subject != null) {
+			foreach($all_subject as $row)
+			{
+				echo "----------- <br>";
+				echo "Content:".$row['content']."<br>";
+				echo "Time   :".$row['time']."<br>";
+			}
+		} else {};
 		?>
 	</div>
-	<?php
-	echo "Welcome to Twitter !";
-
-
-	echo form_open("register/check_register");
-	echo form_fieldset("account").'<br>';
-
-	echo form_label('Subject:');
-	echo form_input('subject').'<br>';
-	echo form_error('subject');
-
-	#echo form_submit('Send', 'Send');
-?>
-<!--<button type="button" onchange=".ajax">Change Content</button> -->
-<p> Click me </p>
-<?php
-	echo form_fieldset_close();
-	echo form_close();
-?>
-<br>
-<div id="txtHint"><b>Person info will be listed here.</b></div>
+	<button id="button2"> More ... </button>
 </body>
 </html>
