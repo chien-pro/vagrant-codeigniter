@@ -1,20 +1,26 @@
 <?php
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Home extends CI_Controller 
 {
 	public function __construct() 
 	{
 		parent::__construct();
-		$this->load->library('form_validation');
+		$this->no_cache();
+
 		$this->load->database();
 		$this->load->helper(array('hash', 'url', 'form'));
-		$this->load->library('session');
 		$this->load->model('subject');
+
+		if ($this->session->userdata('id') == "") {
+			redirect(base_url()."login");
+			exit();
+		}
 	}
 
 	public function index() 
 	{
-		$data["all_subject"] = $this->subject->getSubject($this->session->userdata['id'], 3);
+		$data["all_subject"] = $this->subject->getSubject($this->session->userdata['id'], 10);
 		$this->load->view('home', $data);
 	}
 
@@ -27,11 +33,12 @@ class Home extends CI_Controller
 				'account_id'=> $account_id,
 				);
 		$this->subject->insertSubject($data);
-		$result = $this->subject->getSubject($account_id, 3);		
+		$result = $this->subject->getSubject($account_id, 10);		
 		foreach ($result as $row) {
-			echo "----------- <br>";
-			echo "Content:".$row['content']."<br>";
-			echo "Time   :".$row['time']."<br>";
+			echo "...................................................................................<br>";
+			echo "<div class = 'user'>".$this->session->userdata['name']."</div>";
+			echo "<div class='time'>".$row['time']."</div><br>";
+			echo "<div class = 'content'>".$row['content']."</div>";
 		}
 	}	
 
@@ -42,10 +49,24 @@ class Home extends CI_Controller
 		$result = $this->subject->getSubject($account_id, $num);	
 		if($result != null) {
 			foreach ($result as $row) {
-			echo "----------- <br>";
-			echo "Content:".$row['content']."<br>";
-			echo "Time   :".$row['time']."<br>";
+				echo "...................................................................................<br>";
+				echo "<div class = 'user'>".$this->session->userdata['name']."</div>";
+				echo "<div class='time'>".$row['time']."</div><br>";
+				echo "<div class = 'content'>".$row['content']."</div>";
 			}
 		} else {};
 	}	
+
+	public function logout()
+	{
+		$this->session->sess_destroy();
+		redirect('login');
+	}
+
+	protected function no_cache()
+	{
+		header('Cache-Control: no-store, no-cache, must-revalidate');
+		header('Cache-Control: post-check=0, pre-check=0',false);
+		header('Pragma: no-cache');
+	}
 }

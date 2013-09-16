@@ -40,6 +40,7 @@
 
 $route['default_controller'] = "login";
 #$route['404_override'] = '';
+$route['register']  = "register/index";
 
 
 /* End of file routes.php */

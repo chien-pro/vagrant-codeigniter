@@ -3,6 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Products</title>
+<link rel="stylesheet" href="public/frontend/css/home.css">
 <style type="text/css">
 #infoMessage p{
 	padding: .8em;
@@ -17,19 +18,19 @@
     $name       = array(
                         'name'        => 'name',
                         'id'          => 'name',
-                        'value'       => 'name',
+                        'value'       => set_value('name'),
                         'size'        => '20',
-                        );
+                    );
     $email      = array(
                         'name'        => 'mail',
                         'id'          => 'mail',
-                        'value'       => 'mail',
+                        'value'       => set_value('mail'),
                         'size'        => '20',
                     );
     $password   = array(
                         'name'        => 'pass',
                         'id'          => 'pass',
-                        'value'       => 'pass',
+                        'value'       => set_value('pass'),
                         'size'        => '20',
                     );
     $submit     = array(
@@ -40,14 +41,15 @@
 </head>
 <body>
 <?php
-    echo form_open("register/check_register");
+    echo form_open(base_url()."register/check_register");
     echo form_fieldset("account").'<br>';
-
-    echo form_label("名前 : ").form_input($name)."<br/>";
+    echo "<table>";
+    echo "<tr><td>".form_label("名前: ")."</td><td>".form_input($name)."</td></tr>";
     echo "<div id=infoMessage>".form_error('name')."</div>";
-    echo form_label("メールアドレス : ").form_input($email)."<br/>";
+    echo "<tr><td>".form_label("メールアドレス : ")."</td><td>".form_input($email)."</td></tr>";
     echo "<div id=infoMessage>".form_error('mail')."</div>";
-    echo form_label("パスワード : ").form_password($password)."<br/>";
+    echo "<tr><td>".form_label("パスワード    : ")."</td><td>".form_password($password)."</td></tr>";
+    echo "<table>";
     echo "<div id=infoMessage>".form_error('pass')."</div>";
     echo form_label("").form_submit($submit)."<br/>";
 

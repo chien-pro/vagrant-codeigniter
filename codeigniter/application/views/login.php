@@ -3,27 +3,28 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Products</title>
-<style type="text/css">
-#infoMessage p{
-    padding: .8em;
-    margin-bottom: 1em;
-    border: 2px solid #ddd;
-    background: #FFF6BF;
-    color: #817134;
-    border-color: #FFD324;
+<link href = "<?php echo base_url().'public/frontend/css/login.css';?>" rel = "stylesheet" type="text/css"/>
+<style type="text/css" >
+    #infoMessage p {
+        padding: .8em;
+        margin-bottom: 1em;
+        border: 2px solid #ddd;
+        background: #FFF6BF;
+        color: #817134;
+        border-color: #FFD324;
 }
 
 <?php
     $email = array(
                         'name'        => 'mail',
                         'id'          => 'mail',
-                        'value'       => 'mail',
+                        'value'       => set_value('mail'),
                         'size'        => '20',
                     );
     $password = array(
                         'name'        => 'pass',
                         'id'          => 'pass',
-                        'value'       => 'pass',
+                        'value'       => set_value('pass'),
                         'size'        => '20',
                     );
     $submit = array(
@@ -33,10 +34,11 @@
 ?>
 </style>
 </head>
+
 <body>
 <?php
 	echo "<div id=infoMessage>".validation_errors()."</div>";
-    echo form_open("verify/check_login");
+    echo form_open(base_url()."verify/check_login");
     echo form_fieldset("account");
     echo form_label("メールアドレス : ").form_input($email)."<br/>";
     echo form_label("パスワード : ").form_password($password)."<br/>";
@@ -46,7 +48,6 @@
 
     echo form_fieldset_close();
     echo form_close();
-    
 ?>
 </body>
 </html>

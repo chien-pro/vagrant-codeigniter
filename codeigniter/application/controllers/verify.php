@@ -5,14 +5,12 @@ class Verify extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->database();
-		$this->load->library('session');
 		
 	}
 
 	public function index() 
 	{
 		$this->load->Model("User");
-		$this->load->library('form_validation');
 		if ($this->form_validation->run() == false) {
 			$this->load->view('login');
 		} else {
@@ -22,8 +20,6 @@ class Verify extends CI_Controller
 
 	public function check_login() 
 	{
-		$this->load->library('form_validation');
-		$this->load->helper(array('form', 'url'));
 		$this->form_validation->set_rules('pass', 'パスワード:', 'required|xss_clean|min_length[6]');
 		$this->form_validation->set_rules('mail', 'メール：', 'required|xss_clean|valid_email');
 		
@@ -44,7 +40,6 @@ class Verify extends CI_Controller
 				redirect('home');
 			} else {
 				echo "Invalid email or password, try again !";
-				$this->load->helper(array('form','url'));
 				$this->load->view('login');
 			}
 		} else {

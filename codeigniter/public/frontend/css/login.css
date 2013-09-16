@@ -1,0 +1,43 @@
+@charset "utf-8";
+body {
+    background-color: #FFF;
+    font-family: Tahoma;
+    color: #2c2c2c;
+    font-size: 12px;
+    font-weight: bold;
+    background-image: url(../images/skype3);
+    background-repeat: repeat-x;
+}
+
+label{
+    float:left;
+    width:100px;
+    margin-top:3px;
+    text-align:center;
+}
+input {
+    margin-bottom:3px;
+    border: 1px solid #2c2c2c;
+}
+
+legend{
+    font-weight:900;
+    color:#2c2c2c;
+}
+
+fieldset{
+    width:300px;
+    border:1px solid #2c2c2c;
+    margin-top: 100px;
+    margin-right: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    background-color: #CCCC99;
+}
+.button {
+}
+.error {
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 12px;
+    color: #FFF;
+}

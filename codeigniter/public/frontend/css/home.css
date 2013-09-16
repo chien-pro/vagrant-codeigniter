@@ -1,0 +1,41 @@
+@charset "utf-8";
+body {
+    background-color: #EAFCFD;
+    font-family: Tahoma;
+    color: #2c2c2c;
+    font-size: 14px;
+    font-weight: bold;
+    background-image: url('../images/cloud.jpg');
+    background-repeat: repeat-x;
+    border-width: 10;
+}
+
+#write_subj {
+    width: 50%;
+}
+
+#view_all {
+    float: left;
+}
+
+button {
+    text-align: right;
+    float: center;
+    margin-left: 180px;
+}
+
+.user {
+    float: left;
+    width: 15%;
+    color: orange;
+}
+
+.time {
+    float: left;
+    text-align: right;
+    background-color: #EAFCF1;
+}
+
+.content {
+    text-align: left;
+}
