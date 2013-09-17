@@ -1,99 +1,99 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-wip/css/bootstrap.min.css">
-	<link rel="stylesheet" href="public/frontend/css/home.css">
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-	<script>
-		var num = 10;
-		$(document).ready(function(){ 
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0-wip/css/bootstrap.min.css">
+  <link rel="stylesheet" href="public/frontend/css/home.css">
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script>
+    var start = 10;
+    $(document).ready(function(){ 
 
-			$("#send").click(function() {
-				var subj = $("#subj").val();
-				
-				if(subj == "") {
-					alert("Invalid Subject");
-				} else { 
-					$.ajax({
-						type: "POST",
-						url: "home/insert_subj",
-						data: {
-							'content': subj,
-							'<?php echo $this->security->get_csrf_token_name();?>' : 
-							'<?php echo $this->security->get_csrf_hash(); ?>'
-						}
-					}).done(function( msg ) {
-						$("#subj_view").html(msg);
-					});	
-					$("#subj").val("");	
-				}		
-			});
+      $("#send").click(function() {
+        var subj = $("#subj").val();
 
-			$("#view_more").click(function() {
-				var subj = $("#subj").val();
-				num += 10;
-				$.ajax({
-					type: "POST",
-					url: "home/view_more",
-					data: {
-						'num': num,
-						'<?php echo $this->security->get_csrf_token_name();?>' : 
-						'<?php echo $this->security->get_csrf_hash(); ?>'
-					}
-				}).done(function( msg ) {
-					$("#subj_view").html(msg);
-				});				
-			});
-		});
-		
-	</script>
-	<?php
-	$subj 	= array(
-				'name' 		=> 'subj',
-				'rows' 		=> 2,
-				'cols' 		=> 52,
-				'id' 		=> 'subj'
-			);
-	$button1 = array(
-				'name'		=> 'button',
-				'id'		=> 'send',
-				'content'	=> 'ツイート'
-			);
-	$button2 = array(
-				'name'		=> 'button',
-				'id'		=> 'view_more',
-				'content'	=> 'もっと見る'
-			)
-	?>
+        if(subj == "") {
+          alert("サブジェクトを入力してください。");
+        } else { 
+        $.ajax({
+          type: "POST",
+          url: "home/insert_subj",
+          data: {
+            'content': subj,
+            '<?php echo $this->security->get_csrf_token_name();?>' : 
+            '<?php echo $this->security->get_csrf_hash(); ?>'
+          }
+        }).done(function( msg ) {
+          $("#subj_view").html(msg);
+        });	
+        $("#subj").val("");	
+      }
+    });
+
+      $("#view_more").click(function() {
+        var subj = $("#subj").val();
+        start += 10;
+        $.ajax({
+          type: "POST",
+          url: "home/view_more",
+          data: {
+            'start': start,
+            '<?php echo $this->security->get_csrf_token_name();?>' : 
+            '<?php echo $this->security->get_csrf_hash(); ?>'
+          }
+        }).done(function( msg ) {
+          $("#subj_view").append(msg);
+        });
+      });
+    });
+
+  </script>
+  <?php
+  $subj 	= array(
+    'name' 		=> 'subj',
+    'rows' 		=> 2,
+    'cols' 		=> 52,
+    'id' 		=> 'subj'
+    );
+  $button1 = array(
+    'name'		=> 'button',
+    'id'		=> 'send',
+    'content'	=> 'ツイート'
+    );
+  $button2 = array(
+    'name'		=> 'button',
+    'id'		=> 'view_more',
+    'content'	=> 'もっと見る'
+    );
+  ?>
 </head>
 <body>
-	<h2>Twitterへようこそ !</h2>
-	<ul class="nav nav-tabs">
-		<li class="active">	<a href="<?php echo base_url();?>home"><?php echo $this->session->userdata['name'];?></a></li>
-		<li>				<a href="<?php echo base_url();?>home/logout">ログアウト</a></li>
-	</ul>
-	
-	<label> New Subject:</label>
-	<div id = "write_subj">
-		<?php 
-		echo form_textarea($subj)."<br>";
-		echo form_button($button1);
-		?>
-	</div>
-		
-	<div id = "subj_view">
-		<label> Subject Views </label><br>
-		<?php
-		if($all_subject != null) {
-			foreach($all_subject as $row)
-			{
-				echo "...................................................................................<br>";
-				echo "<div class = 'user'>".$this->session->userdata['name']."</div>";
-				echo "<div class='time'>".$row['time']."</div><br>";
-				echo "<div class = 'content'>".$row['content']."</div>";
-			}
-		}?>
-	</div>
-	<?php echo form_button($button2);?>
+  <h2>Twitterへようこそ !</h2>
+  <ul class="nav nav-tabs">
+    <li class="active">	<a href="<?php echo base_url();?>home"><?php echo $this->session->userdata['name'];?></a></li>
+    <li>				<a href="<?php echo base_url();?>home/logout">ログアウト</a></li>
+  </ul>
+
+  <label> New Subject:</label>
+  <div id = "write_subj">
+    <?php 
+    echo form_textarea($subj)."<br>";
+    echo form_button($button1);
+    ?>
+  </div>
+
+  <div id = "subj_view">
+    <label> Subject Views </label><br>
+    <?php
+    if($all_subject != null) {
+      foreach($all_subject as $row)
+      {
+        echo "...................................................................................<br>";
+        echo "<div class = 'user'>".$this->session->userdata['name']."</div>";
+        echo "<div class='time'>".$row['time']."</div><br>";
+        echo "<div class = 'content'>".$row['content']."</div>";
+      }
+    }?>
+  </div>
+  <?php echo form_button($button2);?>
 </body>
 </html>
