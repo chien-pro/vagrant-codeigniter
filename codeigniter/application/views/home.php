@@ -51,7 +51,7 @@
 	$subj 	= array(
 				'name' 		=> 'subj',
 				'rows' 		=> 2,
-				'cols' 		=> 40,
+				'cols' 		=> 52,
 				'id' 		=> 'subj'
 			);
 	$button1 = array(
@@ -67,7 +67,7 @@
 	?>
 </head>
 <body>
-	<h2>Welcome to Twitter !</h2>
+	<h2>Twitterへようこそ !</h2>
 	<ul class="nav nav-tabs">
 		<li class="active">	<a href="<?php echo base_url();?>home"><?php echo $this->session->userdata['name'];?></a></li>
 		<li>				<a href="<?php echo base_url();?>home/logout">ログアウト</a></li>

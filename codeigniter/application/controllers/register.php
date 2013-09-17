@@ -33,15 +33,7 @@ class Register extends CI_Controller
 			
 			$this->account->insert($data);
 			$temp = $this->account->getAccount($data['mail']);
-
-			$temp2 = array (
-							'mail' 			=> $temp['mail'],
-							'pass'			=> $temp['pass'],
-							'id' 			=> $temp['id'],
-							'name'			=> $temp['name'],
-			);
-			$this->load->library('session');
-			$this->session->set_userdata($temp2);
+			$this->session->set_userdata($temp);
 			redirect('home');
 		} else {
 			$this->load->view('account');

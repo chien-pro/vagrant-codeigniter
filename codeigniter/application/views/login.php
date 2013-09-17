@@ -42,9 +42,10 @@
     echo form_fieldset("account");
     echo form_label("メールアドレス : ").form_input($email)."<br/>";
     echo form_label("パスワード : ").form_password($password)."<br/>";
+    echo $this->recaptcha->getHtml()."<br>";
     echo form_label("").form_submit($submit)."<br/>";
     
-    echo "<a href='register'>ユーザー登録はこちらから</a><br/>";
+    echo "<a href='".base_url()."register'>ユーザー登録はこちらから</a><br/>";
 
     echo form_fieldset_close();
     echo form_close();
