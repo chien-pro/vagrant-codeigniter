@@ -37,7 +37,7 @@
 
 <body>
 <?php
-	echo "<div id=infoMessage>".validation_errors()."</div>";
+    echo "<div id=infoMessage>".validation_errors()."</div>";
     echo form_open(base_url()."verify/check_login");
     echo form_fieldset("account");
     echo form_label("メールアドレス : ").form_input($email)."<br/>";

@@ -6,12 +6,12 @@
 <link rel="stylesheet" href="public/frontend/css/home.css">
 <style type="text/css">
 #infoMessage p{
-	padding: .8em;
-	margin-bottom: 1em;
-	border: 2px solid #ddd;
-	background: #FFF6BF;
-	color: #817134;
-	border-color: #FFD324;
+    padding: .8em;
+    margin-bottom: 1em;
+    border: 2px solid #ddd;
+    background: #FFF6BF;
+    color: #817134;
+    border-color: #FFD324;
 }
 </style>
 <?php
@@ -35,8 +35,8 @@
                     );
     $submit     = array(
                         "name"=>"ok",
-                        "value"=>"登録",
-                    );
+                        "value"=>"登録"
+                        );
 ?>
 </head>
 <body>

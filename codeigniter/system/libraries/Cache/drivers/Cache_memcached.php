@@ -196,6 +196,7 @@ class CI_Cache_memcached extends CI_Driver {
 	 * Returns FALSE if memcached is not supported on the system.
 	 * If it is, we setup the memcached object & return TRUE
 	 */
+  
 	public function is_supported()
 	{
 		if ( ! extension_loaded('memcached'))
