@@ -22,43 +22,33 @@ class Home extends CI_Controller
 
     public function index() 
     {
-        $data["all_subject"] = $this->subject->getSubject($this->session->userdata['id'], self::NUM, 0);
-        $this->load->view('home', $data);
-    }
-
-    public function reload()
-    {
         $account_id = $this->session->userdata('id');
-        $result = $this->cache->memcached->get(md5($account_id));
-        if (!$result) {
+        $check_reload = $this->cache->memcached->get(md5($account_id));
+        if (!$check_reload) { 
             $result = $this->subject->getSubject($this->session->userdata['id'], self::NUM, 0);
-        } 
-        foreach ($result as $row) {
-            echo "...................................................................................<br>";
-            echo "<div class = 'user'>".$this->session->userdata['name']."</div>";
-            echo "<div class='time'>".$row['time']."</div><br>";
-            echo "<div class = 'content'>".$row['content']."</div>";
+            $this->cache->memcached->save(md5($account_id), $result, 600);
+        } else {
+            $result = $this->cache->memcached->get(md5($account_id));
         }
+        $data["all_subject"] = $result;
+        $this->load->view('home', $data);
     }
 
     public function insert_subj()
     {
         $account_id = $this->session->userdata('id');
         $data = array (
-            'content' 	=> str_replace("\n", "<br>", $this->input->post('content')),
-            'time'		  => date('Y-m-d H:i:s'),
-            'account_id'=> $account_id,
+            'content'   => nl2br($this->input->post('content')),
+            'time'      => date('Y-m-d H:i:s'),
+            'account_id'=> $account_id
         );
-
         $this->subject->insertSubject($data);
-        $result = $this->subject->getSubject($account_id, self::NUM, 0);
         $this->cache->memcached->delete(md5($account_id));
-        foreach ($result as $row) {
-            echo "...................................................................................<br>";
-            echo "<div class = 'user'>".$this->session->userdata['name']."</div>";
-            echo "<div class='time'>".$row['time']."</div><br>";
-            echo "<div class = 'content'>".$row['content']."</div>";
-        }
+
+        echo "...................................................................................<br>";
+        echo "<div class = 'user'>".$this->session->userdata['name']."</div>";
+        echo "<div class='time'>".$data['time']."</div><br>";
+        echo "<div class = 'content'>".$data['content']."</div>";
     }
 
     public function view_more()
@@ -67,7 +57,6 @@ class Home extends CI_Controller
         $start 	= $this->input->post('start');
 
         $result = $this->subject->getSubject($account_id, self::NUM, $start);
-        $this->cache->memcached->save(md5($account_id), $result, 600);
 
         if($result != null) {
             foreach ($result as $row) {
@@ -77,10 +66,12 @@ class Home extends CI_Controller
                 echo "<div class = 'content'>".$row['content']."</div>";
             }
         }
-        }
+    }
 
     public function logout()
     {
+        $account_id = $this->session->userdata('id');
+        $this->cache->memcached->delete(md5($account_id));
         $this->session->sess_destroy();
         redirect('login');
     }

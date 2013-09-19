@@ -57,29 +57,13 @@
     var start = 0;
     $(document).ready(function(){ 
 
-        $(document).bind("keydown keypress", function (event) {
-            if (event.keyCode == 116) {
-                $.ajax({
-                    type: "POST",
-                    url: "home/reload",
-                    data: {
-                        'start': start,
-                        '<?php echo $this->security->get_csrf_token_name();?>' : 
-                        '<?php echo $this->security->get_csrf_hash(); ?>'
-                    }
-                }).done(function( msg ) {
-                    $("#subj_view").append(msg);
-                });
-            }
-        });
-
         $("#send").click(function() {
-        var subj = $("#subj").val();
+            var subj = $("#subj").val();
 
-        if (subj == "") {
-            alert("サブジェクトを入力してください。");
-        } else { 
-            start = 0;
+            if (subj == "") {
+                alert("サブジェクトを入力してください。");
+        } else {
+            start += 1;
             $.ajax({
             type: "POST",
             url: "home/insert_subj",
@@ -89,7 +73,7 @@
                 '<?php echo $this->security->get_csrf_hash(); ?>'
             }
         }).done (function( msg ) {
-            $("#subj_view").html(msg);
+            $("#subj_view").prepend(msg);
         }); 
             $("#subj").val("");
         }
