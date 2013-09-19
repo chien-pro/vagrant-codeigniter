@@ -5,7 +5,7 @@
   <link rel="stylesheet" href="public/frontend/css/home.css">
   <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
   <script>
-    var start = 10;
+    var start = 0;
     $(document).ready(function(){ 
 
       $("#send").click(function() {
@@ -14,6 +14,7 @@
         if(subj == "") {
           alert("サブジェクトを入力してください。");
         } else { 
+        //start = 0;
         $.ajax({
           type: "POST",
           url: "home/insert_subj",
@@ -31,7 +32,7 @@
 
       $("#view_more").click(function() {
         var subj = $("#subj").val();
-        start += 10;
+        start += 2;
         $.ajax({
           type: "POST",
           url: "home/view_more",

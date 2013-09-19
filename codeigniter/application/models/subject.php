@@ -14,8 +14,11 @@ class Subject extends CI_Model
     $this->db->from('subject');
     $this->db->where("account_id", $account_id);
     $this->db->order_by("time desc");
-    $this->db->limit($offset, $start);
 
+    if ($offset != -1) {
+      $this->db->limit($offset, $start);
+    } 
+    
     $query = $this->db->get();
 
     if ($query->num_rows()) {
