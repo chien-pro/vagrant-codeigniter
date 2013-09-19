@@ -14,7 +14,7 @@
         if(subj == "") {
           alert("サブジェクトを入力してください。");
         } else { 
-        //start = 0;
+        start = 0;
         $.ajax({
           type: "POST",
           url: "home/insert_subj",
@@ -32,7 +32,7 @@
 
       $("#view_more").click(function() {
         var subj = $("#subj").val();
-        start += 2;
+        start += 10;
         $.ajax({
           type: "POST",
           url: "home/view_more",

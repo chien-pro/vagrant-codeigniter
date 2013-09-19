@@ -18,7 +18,7 @@ class Subject extends CI_Model
     if ($offset != -1) {
       $this->db->limit($offset, $start);
     } 
-    
+
     $query = $this->db->get();
 
     if ($query->num_rows()) {

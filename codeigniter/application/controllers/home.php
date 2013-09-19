@@ -3,7 +3,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Home extends CI_Controller 
 {
-  const NUM = 2;
+  const NUM = 10;
   public function __construct() 
   {
     parent::__construct();
@@ -36,9 +36,7 @@ class Home extends CI_Controller
       );
     $this->subject->insertSubject($data);
     $result = $this->subject->getSubject($account_id, self::NUM, 0);
-    if(!$this->cache->memcached->get(md5('all_subj'))) {
-      $this->cache->memcached->delete(md5('all_subj'));
-    }
+    $this->cache->memcached->delete(md5('all_subj'));
     foreach ($result as $row) {
       echo "...................................................................................<br>";
       echo "<div class = 'user'>".$this->session->userdata['name']."</div>";
@@ -50,16 +48,13 @@ class Home extends CI_Controller
   public function view_more()
   {
     $account_id = $this->session->userdata('id');
-    $start 	= $this->input->post('start');echo "start = ".$start;
+    $start 	= $this->input->post('start');
     $result = $this->cache->memcached->get(md5('all_subj'));
     if (!$result) {
       $result = $this->subject->getSubject($account_id, -1, $start);
-      //print_r($result);
       $this->cache->memcached->save(md5('all_subj'), $result, 600);
     } 
     $sub_result = array_slice($result, $start, self::NUM);
-    echo "<br><br>";
-    //var_dump($sub_result);
 
     foreach ($sub_result as $row) {
       echo "...................................................................................<br>";
