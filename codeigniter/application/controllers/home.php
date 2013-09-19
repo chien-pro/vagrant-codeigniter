@@ -3,7 +3,7 @@ if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Home extends CI_Controller 
 {
-    const NUM = 2;
+    const NUM = 10;
     public function __construct() 
     {
         parent::__construct();
@@ -52,7 +52,7 @@ class Home extends CI_Controller
 
         $this->subject->insertSubject($data);
         $result = $this->subject->getSubject($account_id, self::NUM, 0);
-        //$this->cache->memcached->delete($account_id);
+        $this->cache->memcached->delete(md5($account_id));
         foreach ($result as $row) {
             echo "...................................................................................<br>";
             echo "<div class = 'user'>".$this->session->userdata['name']."</div>";

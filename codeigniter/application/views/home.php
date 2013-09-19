@@ -97,7 +97,7 @@
 
         $("#view_more").click(function() {
             var subj = $("#subj").val();
-            start += 2;
+            start += 10;
             $.ajax({
             type: "POST",
             url: "home/view_more",
