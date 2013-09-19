@@ -38,7 +38,7 @@ class Home extends CI_Controller
     {
         $account_id = $this->session->userdata('id');
         $data = array (
-            'content'   => nl2br($this->input->post('content')),
+            'content'   => $this->input->post('content'),
             'time'      => date('Y-m-d H:i:s'),
             'account_id'=> $account_id
         );
@@ -48,7 +48,7 @@ class Home extends CI_Controller
         echo "...................................................................................<br>";
         echo "<div class = 'user'>".$this->session->userdata['name']."</div>";
         echo "<div class='time'>".$data['time']."</div><br>";
-        echo "<div class = 'content'>".$data['content']."</div>";
+        echo "<div class = 'content'>".nl2br($data['content'])."</div>";
     }
 
     public function view_more()
@@ -63,7 +63,7 @@ class Home extends CI_Controller
                 echo "...................................................................................<br>";
                 echo "<div class = 'user'>".$this->session->userdata['name']."</div>";
                 echo "<div class='time'>".$row['time']."</div><br>";
-                echo "<div class = 'content'>".$row['content']."</div>";
+                echo "<div class = 'content'>".nl2br($row['content'])."</div>";
             }
         }
     }

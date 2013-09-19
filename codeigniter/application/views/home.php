@@ -46,7 +46,7 @@
             echo "...................................................................................<br>";
             echo "<div class = 'user'>".$this->session->userdata['name']."</div>";
             echo "<div class='time'>".$row['time']."</div><br>";
-            echo "<div class = 'content'>".$row['content']."</div>";
+            echo "<div class = 'content'>".nl2br($row['content'])."</div>";
         }
     }?>
     </div>
