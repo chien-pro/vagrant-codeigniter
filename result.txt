@@ -1,0 +1,15 @@
+/index.php/verify/check_login 108
+/index.php/register/check_register 55
+/index.php/home 52
+/ 48
+/register 34
+/logout 13
+/index.php/ 11
+/index.php/logout 6
+/index.php/verify/logout 4
+/index.php/register/ 4
+/index.php 4
+/index.php/register 2
+/index.php/register/logout 1
+/i 1
+/home 1
